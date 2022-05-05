@@ -1,7 +1,7 @@
 import mongoose from "mongoose";
 
 const currencySchema = new mongoose.Schema({
-_id: String ,
+id: String ,
 rank: Number,
 symbol: String,
 name: String,
