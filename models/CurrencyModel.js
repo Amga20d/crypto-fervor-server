@@ -14,7 +14,8 @@ changePercent24Hr: Number,
 vwap24Hr: Number,
 explorer: String,
 prevCount: Number,
-currCount: Number
+currCount: Number,
+fervorChange:Number
 
 });
 

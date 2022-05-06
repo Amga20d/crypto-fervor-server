@@ -14,24 +14,34 @@ app.use(bodyParser.urlencoded({ limit: "20mb", extended: true }));
 
 app.use(cors());
 
+
+
 mongoose
   .connect("mongodb://localhost:27017/currency", {
     useNewUrlParser: true,
     useUnifiedTopology: true,
   })
   .then(() => {
-    console.log("Connection Open!");
+    console.log("Connection Open With Mongodb!");
   })
   .catch((err) => {
     console.log("Oh No Error!!");
     console.log(err);
   });
 
+  app.listen(5000, () => {
+    console.log("Server is Listening on Port 5000!")
+  })
+  
+  app.get('/home', async (req, res) => {
+    const currencyData = await Currency.find({});
+    res.json(currencyData);
+    console.log('endpoint reached');
+  });
 
-
-const sleep = (mili) => {
-  return new Promise(resolve => setTimeout(resolve, mili))
-};
+// const sleep = (mili) => {
+//   return new Promise(resolve => setTimeout(resolve, mili))
+// };
 
 
    
@@ -42,28 +52,47 @@ const sleep = (mili) => {
 
 
 
-
-Currency.find({}).then((datas) =>{
-  async function asyncCall() {
-  for(let curr of datas) {
-    await sleep(500);
-      const recentTweetsWithNode = await client.v2.tweetCountRecent(`${curr.id}`, {granularity: "day"});
+//doing twitter calls by looping through db 
+// Currency.find({}).then((datas) =>{
+//   async function asyncCall() {
+//   for(let curr of datas) {
+//     await sleep(500);
+//       const recentTweetsWithNode = await client.v2.tweetCountRecent(`${curr.id}`, {granularity: "day"});
       
-      Currency.updateOne(
-        { id: curr.id },
-        { prevCount: recentTweetsWithNode.data[5].tweet_count,
-          currCount: recentTweetsWithNode.data[6].tweet_count,
-        }
-            ).then((data) => {
-              console.log("data seeded");
-            }); 
+//       Currency.updateOne(
+//         { id: curr.id },
+//         { prevCount: recentTweetsWithNode.data[5].tweet_count,
+//           currCount: recentTweetsWithNode.data[6].tweet_count,
+//         }
+//             ).then((data) => {
+//               console.log("data seeded");
+//             }); 
 
 
-    }}
+//     }}
 
-    asyncCall();
+//     asyncCall();
   
-} );
+// } );
+
+
+//calculating fervor and updating db.
+// Currency.find({}).then((data) => {
+//   for(let curr of data) {
+//     const fervor = Math.round(100 * (curr.currCount - curr.prevCount)/curr.prevCount);
+    
+//     Currency.updateOne(
+//               { id: curr.id },
+//               { fervorChange: fervor,
+                
+//               }
+//                   ).then((data) => {
+//                     console.log(data);
+//                   }); 
+
+//   }
+// });
+
 
 
 
