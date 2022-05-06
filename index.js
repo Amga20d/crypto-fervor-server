@@ -29,22 +29,40 @@ mongoose
 
 
 
+const sleep = (mili) => {
+  return new Promise(resolve => setTimeout(resolve, mili))
+};
 
 
-
+   
+            
   // const recentTweetsWithNode = await client.v2.tweetCountRecent('tron', {granularity: "day"});
   // console.log(recentTweetsWithNode.data[5].tweet_count);
   // console.log(recentTweetsWithNode.data[6].tweet_count);
 
 
+
+
 Currency.find({}).then((datas) =>{
+  async function asyncCall() {
   for(let curr of datas) {
-    async function asyncCall() {
+    await sleep(500);
       const recentTweetsWithNode = await client.v2.tweetCountRecent(`${curr.id}`, {granularity: "day"});
-      console.log(recentTweetsWithNode.data[6].tweet_count);
-    }
+      
+      Currency.updateOne(
+        { id: curr.id },
+        { prevCount: recentTweetsWithNode.data[5].tweet_count,
+          currCount: recentTweetsWithNode.data[6].tweet_count,
+        }
+            ).then((data) => {
+              console.log("data seeded");
+            }); 
+
+
+    }}
+
     asyncCall();
-  }
+  
 } );
 
 

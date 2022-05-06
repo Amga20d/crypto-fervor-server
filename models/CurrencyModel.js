@@ -12,7 +12,9 @@ volumeUsd24Hr: Number,
 priceUsd: Number,
 changePercent24Hr: Number,
 vwap24Hr: Number,
-explorer: String
+explorer: String,
+prevCount: Number,
+currCount: Number
 
 });
 
