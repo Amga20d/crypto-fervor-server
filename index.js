@@ -2,9 +2,13 @@ import express from "express";
 import bodyParser from "body-parser";
 import mongoose from "mongoose";
 import cors from "cors";
+import cron from "node-cron";
 import axios from "axios";
 import {TwitterApi} from 'twitter-api-v2';
 import Currency from "./models/CurrencyModel.js";
+import Updating from "./controllers/update.js";
+import twitterCalls from "./controllers/twitterCalls.js";
+import fervorCalc from "./controllers/fervorCalc.js";
 
 const app = express();
 const client = new TwitterApi('AAAAAAAAAAAAAAAAAAAAAEYUaAEAAAAAOXUV45gabVAEBjqs7Z35nagQ6vI%3DS54tmnCcIBlC6KTeP9rd9nc2vdrHD8md5yfHgjKeTiHmkAey9G');
@@ -38,6 +42,21 @@ mongoose
     res.json(currencyData);
     console.log('endpoint reached');
   });
+
+
+  cron.schedule('13 13 * * *', function() {
+    Updating();
+  });
+
+  cron.schedule('23 13 * * *', function() {
+    twitterCalls();
+  });
+
+  cron.schedule('29 13 * * *', function() {
+    fervorCalc();
+  });
+ 
+ 
 
 // const sleep = (mili) => {
 //   return new Promise(resolve => setTimeout(resolve, mili))

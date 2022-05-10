@@ -1,5 +1,6 @@
 import axios from "axios";
 import mongoose from "mongoose";
+
 import Currency from "../models/CurrencyModel.js";
 
 
@@ -16,8 +17,8 @@ mongoose
     console.log(err);
   });
 
-  //to update the data //
-axios.get("https://api.coincap.io/v2/assets").then((res) => {
+   function Updating() {
+    axios.get("https://api.coincap.io/v2/assets").then((res) => {
   const seed = res.data.data;
 
   for (let curr of seed) {
@@ -41,3 +42,11 @@ axios.get("https://api.coincap.io/v2/assets").then((res) => {
     });
   }
 });
+  };
+
+  //to update the data //
+
+
+
+
+export default Updating;

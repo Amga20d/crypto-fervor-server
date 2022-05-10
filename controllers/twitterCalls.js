@@ -23,7 +23,8 @@ mongoose
     };
     
     //doing twitter calls by looping through db 
-Currency.find({}).then((datas) =>{
+
+function twitterCalls() {Currency.find({}).then((datas) =>{
   async function asyncCall() {
   for(let curr of datas) {
     await sleep(500);
@@ -43,4 +44,7 @@ Currency.find({}).then((datas) =>{
 
     asyncCall();
   
-} );
+} );};
+
+
+export default twitterCalls;

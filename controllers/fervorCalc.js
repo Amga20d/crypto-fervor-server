@@ -16,7 +16,7 @@ mongoose
   });
 
   //calculating fervor and updating db.
-Currency.find({}).then((data) => {
+function fervorCalc() {Currency.find({}).then((data) => {
   for(let curr of data) {
     const fervor = Math.round(100 * (curr.currCount - curr.prevCount)/curr.prevCount);
     
@@ -30,4 +30,7 @@ Currency.find({}).then((data) => {
                   }); 
 
   }
-});
+});};
+
+
+export default fervorCalc;
