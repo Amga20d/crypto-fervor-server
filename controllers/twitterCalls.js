@@ -4,7 +4,7 @@ import Currency from "../models/CurrencyModel.js";
 
 
 mongoose
-  .connect("mongodb://localhost:27017/currency", {
+  .connect("mongodb+srv://Amga20d:202601Amgad@cluster0.73wf9.mongodb.net/currency?retryWrites=true&w=majority", {
     useNewUrlParser: true,
     useUnifiedTopology: true,
   })
@@ -37,14 +37,23 @@ function twitterCalls() {Currency.find({}).then((datas) =>{
         }
             ).then((data) => {
               console.log("data seeded");
-            }); 
+            }).catch((err) => {
+              console.log("Oh No Error with updating twitter calls!!");
+              console.log(err);
+            });; 
 
 
     }}
 
     asyncCall();
   
-} );};
+} )
+.catch((err) => {
+  console.log("Oh No Error withe twitter calls!!");
+  console.log(err);
+});;};
+
+
 
 
 export default twitterCalls;

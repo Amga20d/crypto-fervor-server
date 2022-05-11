@@ -3,7 +3,7 @@ import Currency from "../models/CurrencyModel.js";
 
 
 mongoose
-  .connect("mongodb://localhost:27017/currency", {
+  .connect("mongodb+srv://Amga20d:202601Amgad@cluster0.73wf9.mongodb.net/currency?retryWrites=true&w=majority", {
     useNewUrlParser: true,
     useUnifiedTopology: true,
   })
@@ -18,7 +18,7 @@ mongoose
   //calculating fervor and updating db.
 function fervorCalc() {Currency.find({}).then((data) => {
   for(let curr of data) {
-    const fervor = Math.round(100 * (curr.currCount - curr.prevCount)/curr.prevCount);
+    const fervor = (100 * (curr.currCount - curr.prevCount)/curr.prevCount).toFixed(2);
     
     Currency.updateOne(
               { id: curr.id },
@@ -27,10 +27,18 @@ function fervorCalc() {Currency.find({}).then((data) => {
               }
                   ).then((data) => {
                     console.log(data);
-                  }); 
+                  }).catch((err) => {
+                    console.log("Oh No Error with updating fervor in db!!");
+                    console.log(err);
+                  });; 
 
   }
-});};
+}).catch((err) => {
+  console.log("Oh No Error with fetching db for fervor calc!!");
+  console.log(err);
+});;};
+
+
 
 
 export default fervorCalc;

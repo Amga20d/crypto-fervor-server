@@ -21,7 +21,7 @@ app.use(cors());
 
 
 mongoose
-  .connect("mongodb://localhost:27017/currency", {
+  .connect("mongodb+srv://Amga20d:202601Amgad@cluster0.73wf9.mongodb.net/currency?retryWrites=true&w=majority", {
     useNewUrlParser: true,
     useUnifiedTopology: true,
   })
@@ -29,7 +29,7 @@ mongoose
     console.log("Connection Open With Mongodb!");
   })
   .catch((err) => {
-    console.log("Oh No Error!!");
+    console.log("Oh No Error connecting to db!!");
     console.log(err);
   });
 
@@ -44,15 +44,15 @@ mongoose
   });
 
 
-  cron.schedule('13 13 * * *', function() {
+  cron.schedule('0 */1 * * *', function() {
     Updating();
   });
 
-  cron.schedule('23 13 * * *', function() {
+  cron.schedule('30 23 * * *', function() {
     twitterCalls();
   });
 
-  cron.schedule('29 13 * * *', function() {
+  cron.schedule('35 23 * * *', function() {
     fervorCalc();
   });
  
