@@ -3,6 +3,7 @@ import bodyParser from "body-parser";
 import mongoose from "mongoose";
 import cors from "cors";
 import cron from "node-cron";
+import helmet from "helmet";
 import axios from "axios";
 import {TwitterApi} from 'twitter-api-v2';
 import Currency from "./models/CurrencyModel.js";
@@ -16,12 +17,14 @@ const client = new TwitterApi('AAAAAAAAAAAAAAAAAAAAAEYUaAEAAAAAOXUV45gabVAEBjqs7
 app.use(bodyParser.json({ limit: "20mb", extended: true }));
 app.use(bodyParser.urlencoded({ limit: "20mb", extended: true }));
 
+app.use(helmet());
 app.use(cors());
 
 
 
+
 mongoose
-  .connect("mongodb+srv://Amga20d:202601Amgad@cluster0.73wf9.mongodb.net/currency?retryWrites=true&w=majority", {
+  .connect("mongodb://localhost:27017/currency", {
     useNewUrlParser: true,
     useUnifiedTopology: true,
   })
@@ -44,17 +47,17 @@ mongoose
   });
 
 
-  cron.schedule('0 */1 * * *', function() {
-    Updating();
-  });
+  // cron.schedule('0 */1 * * *', function() {
+  //   Updating();
+  // });
 
-  cron.schedule('30 23 * * *', function() {
-    twitterCalls();
-  });
+  // cron.schedule('2 */1 * * *', function() {
+  //   twitterCalls();
+  // });
 
-  cron.schedule('35 23 * * *', function() {
-    fervorCalc();
-  });
+  // cron.schedule('5 */1 * * *', function() {
+  //   fervorCalc();
+  // });
  
  
 

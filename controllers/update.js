@@ -4,8 +4,10 @@ import mongoose from "mongoose";
 import Currency from "../models/CurrencyModel.js";
 
 
+// mongodb+srv://Amga20d:202601Amgad@cluster0.73wf9.mongodb.net/currency?retryWrites=true&w=majority
+
 mongoose
-  .connect("mongodb+srv://Amga20d:202601Amgad@cluster0.73wf9.mongodb.net/currency?retryWrites=true&w=majority", {
+  .connect("mongodb://localhost:27017/currency", {
     useNewUrlParser: true,
     useUnifiedTopology: true,
   })
