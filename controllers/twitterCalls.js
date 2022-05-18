@@ -1,10 +1,11 @@
 import {TwitterApi} from 'twitter-api-v2';
 import mongoose from "mongoose";
+import "dotenv/config.js"
 import Currency from "../models/CurrencyModel.js";
 
 
 mongoose
-  .connect("mongodb://localhost:27017/currency", {
+  .connect(process.env.MONGO_API, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
   })
@@ -16,7 +17,7 @@ mongoose
     console.log(err);
   });
 
-  const client = new TwitterApi('AAAAAAAAAAAAAAAAAAAAAEYUaAEAAAAAOXUV45gabVAEBjqs7Z35nagQ6vI%3DS54tmnCcIBlC6KTeP9rd9nc2vdrHD8md5yfHgjKeTiHmkAey9G');
+  const client = new TwitterApi(process.env.TWITTER_API);
 
   const sleep = (mili) => {
       return new Promise(resolve => setTimeout(resolve, mili))

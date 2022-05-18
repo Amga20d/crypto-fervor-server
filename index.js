@@ -10,9 +10,10 @@ import Currency from "./models/CurrencyModel.js";
 import Updating from "./controllers/update.js";
 import twitterCalls from "./controllers/twitterCalls.js";
 import fervorCalc from "./controllers/fervorCalc.js";
+import "dotenv/config.js"
 
 const app = express();
-const client = new TwitterApi('AAAAAAAAAAAAAAAAAAAAAEYUaAEAAAAAOXUV45gabVAEBjqs7Z35nagQ6vI%3DS54tmnCcIBlC6KTeP9rd9nc2vdrHD8md5yfHgjKeTiHmkAey9G');
+
 
 app.use(bodyParser.json({ limit: "20mb", extended: true }));
 app.use(bodyParser.urlencoded({ limit: "20mb", extended: true }));
@@ -24,7 +25,7 @@ app.use(cors());
 
 
 mongoose
-  .connect("mongodb://localhost:27017/currency", {
+  .connect(process.env.MONGO_API, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
   })
@@ -47,17 +48,17 @@ mongoose
   });
 
 
-  // cron.schedule('0 */1 * * *', function() {
-  //   Updating();
-  // });
+  cron.schedule('45 */1 * * *', function() {
+    Updating();
+  });
 
-  // cron.schedule('2 */1 * * *', function() {
-  //   twitterCalls();
-  // });
+  cron.schedule('46 */1 * * *', function() {
+    twitterCalls();
+  });
 
-  // cron.schedule('5 */1 * * *', function() {
-  //   fervorCalc();
-  // });
+  cron.schedule('48 */1 * * *', function() {
+    fervorCalc();
+  });
  
  
 

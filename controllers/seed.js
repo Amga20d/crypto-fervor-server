@@ -1,12 +1,13 @@
 import axios from "axios";
 import mongoose from "mongoose";
+import "dotenv/config.js"
 import Currency from "../models/CurrencyModel.js";
 
 
 
 
 mongoose
-  .connect("mongodb://localhost:27017/currency", {
+  .connect(process.env.MONGO_API, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
   })
@@ -20,7 +21,7 @@ mongoose
 
 
  //to seed the data 
- axios.get("https://api.coincap.io/v2/assets").then((res) => {
+ axios.get(process.env.COIN_API).then((res) => {
    const seed = res.data.data;
  
    Currency.insertMany(seed).then((data) => {

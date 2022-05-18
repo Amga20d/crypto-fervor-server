@@ -1,9 +1,10 @@
 import mongoose from "mongoose";
+import "dotenv/config.js"
 import Currency from "../models/CurrencyModel.js";
 
 
 mongoose
-  .connect("mongodb://localhost:27017/currency", {
+  .connect(process.env.MONGO_API, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
   })

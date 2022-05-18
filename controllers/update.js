@@ -1,13 +1,13 @@
 import axios from "axios";
 import mongoose from "mongoose";
-
+import "dotenv/config.js"
 import Currency from "../models/CurrencyModel.js";
 
 
-// mongodb+srv://Amga20d:202601Amgad@cluster0.73wf9.mongodb.net/currency?retryWrites=true&w=majority
+
 
 mongoose
-  .connect("mongodb://localhost:27017/currency", {
+  .connect(process.env.MONGO_API, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
   })
@@ -20,7 +20,7 @@ mongoose
   });
 
    function Updating() {
-    axios.get("https://api.coincap.io/v2/assets").then((res) => {
+    axios.get(process.env.COIN_API).then((res) => {
   const seed = res.data.data;
 
   for (let curr of seed) {
