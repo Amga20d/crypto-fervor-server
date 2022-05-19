@@ -19,6 +19,7 @@ mongoose
     console.log(err);
   });
 
+  //to update the data //
    function Updating() {
     axios.get(process.env.COIN_API).then((res) => {
   const seed = res.data.data;
@@ -52,7 +53,7 @@ mongoose
 });;
   };
 
-  //to update the data //
+  
 
 
 

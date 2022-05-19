@@ -28,7 +28,7 @@ mongoose
 function twitterCalls() {Currency.find({}).then((datas) =>{
   async function asyncCall() {
   for(let curr of datas) {
-    await sleep(500);
+    await sleep(900);
       const recentTweetsWithNode = await client.v2.tweetCountRecent(`${curr.name}`, {granularity: "day"});
       
       Currency.updateOne(
